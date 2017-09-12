@@ -102,7 +102,8 @@ matrix<T> matrix<T>::operator*(const matrix<T> &m) const {
     //ct遍历*this，cm遍历m，cw遍历w
     for (int i = 1; i <= theRows; i++) {
         //计算矩阵结果的第i行
-        for (int j = 1; j <= m.theColumns; j++) {
+        for (int j = 1; j <= m.theColumns; j++)//计算w(i,j)
+        {
             T sum = element[ct] * m.element[cm];//w(i,j)第一项
             for (int k = 2; k <= theColumns; k++)//累加w(i,j)余下所有项
             {
@@ -111,8 +112,13 @@ matrix<T> matrix<T>::operator*(const matrix<T> &m) const {
                 sum += element[ct] * m.element[cm];
             }
             w.element[cw++] = sum;//存储在w(i,j)
-            
+            //从行的起点和下一列重新开始
+            ct -= (theColumns - 1);
+            cm = j;
         }
+        //从下一行和第一列重新开始
+        ct += theColumns;
+        cm = 0;
     }
     return w;
 }
