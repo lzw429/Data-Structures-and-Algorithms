@@ -99,10 +99,19 @@ matrix<T> matrix<T>::operator*(const matrix<T> &m) const {
         throw matrixSizeMismatch();
     matrix<T> w(theRows, m.theColumns);//构造要返回的矩阵
     int ct = 0, cm = 0, cw = 0;
+    //ct遍历*this，cm遍历m，cw遍历w
     for (int i = 1; i <= theRows; i++) {
         //计算矩阵结果的第i行
         for (int j = 1; j <= m.theColumns; j++) {
-
+            T sum = element[ct] * m.element[cm];//w(i,j)第一项
+            for (int k = 2; k <= theColumns; k++)//累加w(i,j)余下所有项
+            {
+                ct++;//*this中第i行的下一项
+                cm += m.theColumns;//m中第j列的下一项
+                sum += element[ct] * m.element[cm];
+            }
+            w.element[cw++] = sum;//存储在w(i,j)
+            
         }
     }
     return w;
