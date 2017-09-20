@@ -28,7 +28,7 @@
  *   You should not attempt to use it directly.
  */
 
-//list 循环双向链表
+//list 双向链表
 
 #ifndef __SGI_STL_INTERNAL_LIST_H
 #define __SGI_STL_INTERNAL_LIST_H
