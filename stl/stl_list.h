@@ -689,7 +689,7 @@ void list<_Tp, _Alloc>::resize(size_type __new_size, const _Tp &__x) {
 }
 
 template<class _Tp, class _Alloc>
-list<_Tp, _Alloc> &list<_Tp, _Alloc>::operator=(const list<_Tp, _Alloc> &__x) {
+list<_Tp, _Alloc> &list<_Tp, _Alloc>::operator=(const list<_Tp, _Alloc> &__x) {//赋值运算符=
     if (this != &__x) {
         iterator __first1 = begin();
         iterator __last1 = end();
@@ -792,8 +792,8 @@ inline void list<_Tp, _Alloc>::reverse() {
 }
 
 template<class _Tp, class _Alloc>
-void list<_Tp, _Alloc>::sort() {
-    // Do nothing if the list has length 0 or 1.
+void list<_Tp, _Alloc>::sort() {//sort排序
+    // Do nothing if the list has length 0 or 1. 如果list长度是0或1，不执行任何操作
     if (_M_node->_M_next != _M_node && _M_node->_M_next->_M_next != _M_node) {
         list<_Tp, _Alloc> __carry;
         list<_Tp, _Alloc> __counter[64];
