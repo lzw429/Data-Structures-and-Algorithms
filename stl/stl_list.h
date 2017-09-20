@@ -102,23 +102,23 @@ struct _List_iterator : public _List_iterator_base {
 
 #endif /* __SGI_STL_NO_ARROW_OPERATOR */
 
-    _Self &operator++() {
+    _Self &operator++() {//前缀自增：先增后返回
         this->_M_incr();
         return *this;
     }
 
-    _Self operator++(int) {
+    _Self operator++(int) {//后缀自增：先创建副本，自增，再返回副本
         _Self __tmp = *this;
         this->_M_incr();
         return __tmp;
     }
 
-    _Self &operator--() {
+    _Self &operator--() {//前缀自减：先减后返回
         this->_M_decr();
         return *this;
     }
 
-    _Self operator--(int) {
+    _Self operator--(int) {//后缀自减：先创建副本，自减，再返回副本
         _Self __tmp = *this;
         this->_M_decr();
         return __tmp;
@@ -259,9 +259,9 @@ protected:
 
 template<class _Tp, class _Alloc>
 void
-_List_base<_Tp, _Alloc>::clear() {
-    _List_node<_Tp> *__cur = (_List_node<_Tp> *) _M_node->_M_next;
-    while (__cur != _M_node) {
+_List_base<_Tp, _Alloc>::clear() {//清空链表
+    _List_node<_Tp> *__cur = (_List_node<_Tp> *) _M_node->_M_next;//存有数据的第一个结点
+    while (__cur != _M_node) {//遍历所有结点
         _List_node<_Tp> *__tmp = __cur;
         __cur = (_List_node<_Tp> *) __cur->_M_next;
         _Destroy(&__tmp->_M_data);
@@ -349,15 +349,15 @@ public:
 
     const_iterator end() const { return _M_node; }
 
-    reverse_iterator rbegin() { return reverse_iterator(end()); }
+    reverse_iterator rbegin() { return reverse_iterator(end()); }//reverse_begin = end
 
     const_reverse_iterator rbegin() const { return const_reverse_iterator(end()); }
 
-    reverse_iterator rend() { return reverse_iterator(begin()); }
+    reverse_iterator rend() { return reverse_iterator(begin()); }//reverse_end = begin
 
     const_reverse_iterator rend() const { return const_reverse_iterator(begin()); }
 
-    bool empty() const { return _M_node->_M_next == _M_node; }
+    bool empty() const { return _M_node->_M_next == _M_node; }//头结点指向自身表明链表中无元素
 
     size_type size() const {
         size_type __result = 0;
@@ -371,7 +371,7 @@ public:
 
     const_reference front() const { return *begin(); }
 
-    reference back() { return *(--end()); }
+    reference back() { return *(--end()); }//end()前一个是存有数据的尾结点
 
     const_reference back() const { return *(--end()); }
 
@@ -520,14 +520,14 @@ public:
 #endif /* __STL_MEMBER_TEMPLATES */
 
 protected:
-    void transfer(iterator __position, iterator __first, iterator __last) {
+    void transfer(iterator __position, iterator __first, iterator __last) {// 将[first, last)从原链表中剪切到__position前
         if (__position != __last) {
-            // Remove [first, last) from its old position.
+            // Remove [first, last) from its old position. 先修改所有的_M_next
             __last._M_node->_M_prev->_M_next = __position._M_node;
             __first._M_node->_M_prev->_M_next = __last._M_node;
             __position._M_node->_M_prev->_M_next = __first._M_node;
 
-            // Splice [first, last) into its new position.
+            // Splice [first, last) into its new position. 再修改所有的_M_prev
             _List_node_base *__tmp = __position._M_node->_M_prev;
             __position._M_node->_M_prev = __last._M_node->_M_prev;
             __last._M_node->_M_prev = __first._M_node->_M_prev;
@@ -536,19 +536,19 @@ protected:
     }
 
 public:
-    void splice(iterator __position, list &__x) {
+    void splice(iterator __position, list &__x) {//将链表__x移动到__position之前
         if (!__x.empty())
             this->transfer(__position, __x.begin(), __x.end());
     }
 
-    void splice(iterator __position, list &, iterator __i) {
+    void splice(iterator __position, list &, iterator __i) {//将链表中迭代器__i指向的内容移动到__position之前
         iterator __j = __i;
         ++__j;
         if (__position == __i || __position == __j) return;
         this->transfer(__position, __i, __j);
     }
 
-    void splice(iterator __position, list &, iterator __first, iterator __last) {
+    void splice(iterator __position, list &, iterator __first, iterator __last) {//将链表中[first, last)移动到__position之前
         if (__first != __last)
             this->transfer(__position, __first, __last);
     }
