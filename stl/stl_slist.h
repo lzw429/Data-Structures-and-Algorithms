@@ -292,7 +292,7 @@ protected:
     _Slist_node_base *_M_erase_after(_Slist_node_base *, _Slist_node_base *);
 
 protected:
-    _Slist_node_base _M_head;
+    _Slist_node_base _M_head;//头指针，不含数据域
 };
 
 #endif /* __STL_USE_STD_ALLOCATORS */
@@ -300,7 +300,7 @@ protected:
 template<class _Tp, class _Alloc>
 _Slist_node_base *
 _Slist_base<_Tp, _Alloc>::_M_erase_after(_Slist_node_base *__before_first,
-                                         _Slist_node_base *__last_node) {
+                                         _Slist_node_base *__last_node) {//删除(before_first,last_node)这些结点
     _Slist_node<_Tp> *__cur = (_Slist_node<_Tp> *) (__before_first->_M_next);
     while (__cur != __last_node) {
         _Slist_node<_Tp> *__tmp = __cur;
@@ -431,7 +431,7 @@ public:
 
 public:
 
-    iterator begin() { return iterator((_Node *) this->_M_head._M_next); }
+    iterator begin() { return iterator((_Node *) this->_M_head._M_next); }//头指针后第一个结点
 
     const_iterator begin() const { return const_iterator((_Node *) this->_M_head._M_next); }
 
@@ -456,11 +456,11 @@ public:
 
     bool empty() const { return this->_M_head._M_next == 0; }
 
-    void swap(slist &__x) { __STD::swap(this->_M_head._M_next, __x._M_head._M_next); }
+    void swap(slist &__x) { __STD::swap(this->_M_head._M_next, __x._M_head._M_next); }//通过交换链表头交换两个链表中的内容
 
 public:
 
-    reference front() { return ((_Node *) this->_M_head._M_next)->_M_data; }
+    reference front() { return ((_Node *) this->_M_head._M_next)->_M_data; }//第一个数据域
 
     const_reference front() const { return ((_Node *) this->_M_head._M_next)->_M_data; }
 
@@ -792,18 +792,18 @@ slist<_Tp, _Alloc>::_M_assign_dispatch(_InputIter __first, _InputIter __last,
 
 template<class _Tp, class _Alloc>
 inline bool
-operator==(const slist<_Tp, _Alloc> &_SL1, const slist<_Tp, _Alloc> &_SL2) {
+operator==(const slist<_Tp, _Alloc> &_SL1, const slist<_Tp, _Alloc> &_SL2) {//等于运算符==
     typedef typename slist<_Tp, _Alloc>::const_iterator const_iterator;
     const_iterator __end1 = _SL1.end();
     const_iterator __end2 = _SL2.end();
 
     const_iterator __i1 = _SL1.begin();
     const_iterator __i2 = _SL2.begin();
-    while (__i1 != __end1 && __i2 != __end2 && *__i1 == *__i2) {
+    while (__i1 != __end1 && __i2 != __end2 && *__i1 == *__i2) {//依次序比较结点
         ++__i1;
         ++__i2;
     }
-    return __i1 == __end1 && __i2 == __end2;
+    return __i1 == __end1 && __i2 == __end2;//比较尾结点
 }
 
 
