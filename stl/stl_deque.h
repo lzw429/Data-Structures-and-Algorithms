@@ -28,6 +28,8 @@
  *   You should not attempt to use it directly.
  */
 
+//deque Ë«Ïò¶ÓÁÐ
+
 #include <concept_checks.h>
 
 #ifndef __SGI_STL_INTERNAL_DEQUE_H

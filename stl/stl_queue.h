@@ -28,6 +28,11 @@
  *   You should not attempt to use it directly.
  */
 
+//queue
+//queue是一种先进先出(FIFO)的数据结构，在前后有两个出口，分别称为队头和队尾
+//queue允许在队尾追加元素和访问队尾元素，在队头获取和移除元素
+//除此之外queue不支持其他元素的访问
+
 #ifndef __SGI_STL_INTERNAL_QUEUE_H
 #define __SGI_STL_INTERNAL_QUEUE_H
 
@@ -87,6 +92,8 @@ public:
   queue() : c() {}
   explicit queue(const _Sequence& __c) : c(__c) {}
 
+  //这些是STL queue的标准接口，均调用容器的成员函数进行实现
+  //其接口和stack实现很接近，参考<stl_stack.h>
   bool empty() const { return c.empty(); }
   size_type size() const { return c.size(); }
   reference front() { return c.front(); }
@@ -166,10 +173,12 @@ public:
   typedef typename _Sequence::reference       reference;
   typedef typename _Sequence::const_reference const_reference;
 protected:
-  _Sequence c;
-  _Compare comp;
+  _Sequence c;//内部维护的容器
+  _Compare comp;//优先级决策判别式
 public:
   priority_queue() : c() {}
+  
+  //用户可指定自己的优先级决策函数
   explicit priority_queue(const _Compare& __x) :  c(), comp(__x) {}
   priority_queue(const _Compare& __x, const _Sequence& __s) 
     : c(__s), comp(__x) 
