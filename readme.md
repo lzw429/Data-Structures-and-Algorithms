@@ -1,2 +1,2 @@
 # TODO
-KMP.cpp
+Knuth-Morris-Pratt.cpp
