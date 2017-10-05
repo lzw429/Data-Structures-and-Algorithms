@@ -1,3 +1,4 @@
+// 算法导论第二版 P.153
 class BinarySearchTree
 {
 private:
