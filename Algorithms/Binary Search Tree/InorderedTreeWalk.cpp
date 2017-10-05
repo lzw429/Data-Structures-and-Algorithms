@@ -5,6 +5,7 @@ private:
 	int key;
 	BinarySearchTree *left;
 	BinarySearchTree *right;
+	BinarySearchTree *parent;
 };
 
 void InorderedTreeWalk(BinarySearchTree *x)
@@ -15,5 +16,4 @@ void InorderedTreeWalk(BinarySearchTree *x)
 		cout << x->key;
 		InorderedTreeWalk(x->right);
 	}
-
 }
