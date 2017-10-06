@@ -106,7 +106,7 @@ void TreeDelete(BinarySearchTree *T, BinarySearchTree *z)
 	BinarySearchTree *y;
 	if (z->left == nullptr || z->right == nullptr)
 		y = z;
-	else // 若z有子结点，要将它的子结点过继给其他结点
+	else // 若z有两个子结点，要将它的子结点过继给其他结点
 		y = TreeSuccessor(z);
 	if (y->left != nullptr)
 	{
