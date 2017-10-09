@@ -19,7 +19,7 @@ void TreeInsert(BinarySearchTree *T, BinarySearchTree *z);
 
 BinarySearchTree* TreeSearch(BinarySearchTree *x, int k)
 {
-	if (x == nullptr || k = x->key)
+	if (x == nullptr || k == x->key)
 		return x;
 	if (k < x->key)
 		return TreeSearch(x->left, k);
@@ -105,11 +105,11 @@ void Transplant(BinarySearchTree *T, BinarySearchTree *u, BinarySearchTree *v)//
 {
 	if (u->parent == nullptr)
 		T = v;
-	else if (u == u->parent->left)
+	else if (u == u->parent->left)//如果u是其父结点的左子结点
 		u->parent->left = v;
-	else u->parent->right = v;
+	else u->parent->right = v;//如果u是其父结点的右子结点
 	if (v != nullptr)
-		v->parent = u->parent;
+		v->parent = u->parent;//再修改v的父结点
 }
 
 void TreeDelete(BinarySearchTree *T, BinarySearchTree *z)
