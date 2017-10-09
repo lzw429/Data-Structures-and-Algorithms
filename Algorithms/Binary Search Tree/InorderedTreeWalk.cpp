@@ -8,7 +8,7 @@ private:
 	BinarySearchTree *parent;
 };
 
-void InorderedTreeWalk(BinarySearchTree *x)
+void InorderedTreeWalk(BinarySearchTree *x)//ÖÐÐò±éÀú
 {
 	if (x != nullptr)
 	{

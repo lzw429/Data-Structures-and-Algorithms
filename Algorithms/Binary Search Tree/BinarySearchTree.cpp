@@ -101,15 +101,34 @@ void TreeInsert(BinarySearchTree *T, BinarySearchTree *z)
 	}
 }
 
+void Transplant(BinarySearchTree *T, BinarySearchTree *u, BinarySearchTree *v)//用一棵以v为根的子树替换一棵以u为根的子树，结点u的父结点变为结点v的父结点
+{
+	if (u->parent == nullptr)
+		T = v;
+	else if (u == u->parent->left)
+		u->parent->left = v;
+	else u->parent->right = v;
+	if (v != nullptr)
+		v->parent = u->parent;
+}
+
 void TreeDelete(BinarySearchTree *T, BinarySearchTree *z)
 {
-	BinarySearchTree *y;
-	if (z->left == nullptr || z->right == nullptr)
-		y = z;
-	else // 若z有两个子结点，要将它的子结点过继给其他结点
-		y = TreeSuccessor(z);
-	if (y->left != nullptr)
+	if (z->left == nullptr)
+		Transplant(T, z, z->right);
+	else if (z->right = nullptr)
+		Transplant(T, z, z->left);
+	else
 	{
-		
+		BinarySearchTree *y = TreeMinimum(z->right);//将使y代替z
+		if (y->parent != z)
+		{
+			Transplant(T, y, y->right);//y将离开原位
+			y->right = z->right;//y继承z的右子结点
+			y->right->parent = y;//使右子结点认识新的父结点
+		}
+		Transplant(T, z, y);
+		y->left = z->left;//y继承z的左子结点
+		y->left->parent->y;//使左子结点认识新的父结点
 	}
 }
