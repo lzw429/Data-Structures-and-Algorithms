@@ -83,24 +83,23 @@ void minHeap<T>::push(const T& theElement)
 }
 
 template<class T>
-void minHeap<T>::pop()
-{// Remove max element.
-   // if heap is empty return null
-	if (heapSize == 0)   // heap empty
+void minHeap<T>::pop() // 在堆中移除最小元素 
+{
+	if (heapSize == 0)   // 如果堆为空，返回NULL
 		throw queueEmpty();
 
-	// Delete min element
+	// 删除最小元素
 	heap[1].~T();
 
-	// Remove last element and reheapify
+	// 删除最后一个元素，重新建堆
 	T lastElement = heap[heapSize--];
 
-	// find place for lastElement starting at root
+	// 从根结点开始为lastElement找到位置
 	int currentNode = 1,
-		child = 2;     // child of currentNode
+		child = 2;     // currentNode的子结点
 	while (child <= heapSize)
 	{
-		// heap[child] should be smaller child of currentNode
+		// 使heap[child]为currentNode的较小的子结点
 		if (child < heapSize && heap[child] > heap[child + 1])
 			child++;
 
