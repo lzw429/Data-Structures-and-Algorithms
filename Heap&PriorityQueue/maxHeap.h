@@ -124,7 +124,7 @@ void maxHeap<T>::initialize(T *theHeap, int theSize)
 	heap = theHeap;
 	heapSize = theSize;
 
-	// 建堆
+	// 建堆，将以root为根的子树调整为最大堆
 	for (int root = heapSize / 2; root >= 1; root--)
 	{
 		T rootElement = heap[root];
@@ -134,17 +134,17 @@ void maxHeap<T>::initialize(T *theHeap, int theSize)
 							  // 为rootElement定位
 		while (child <= heapSize)
 		{
-			// heap[child] should be larger sibling
+			// heap[child] 应是兄弟结点中较大的
 			if (child < heapSize && heap[child] < heap[child + 1])
 				child++;
 
-			// can we put rootElement in heap[child/2]?
+			// 判断能否将rootElement放入heap[child/2]
 			if (rootElement >= heap[child])
-				break;  // yes
+				break;  // 能放入
 
-			 // no
-			heap[child / 2] = heap[child]; // move child up
-			child *= 2;                    // move down a level
+			 // 不能放入
+			heap[child / 2] = heap[child]; // 将root的较大子结点赋值给root
+			child *= 2;                    // child向下移动
 		}
 		heap[child / 2] = rootElement;
 	}

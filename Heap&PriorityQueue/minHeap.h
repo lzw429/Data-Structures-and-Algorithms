@@ -103,13 +103,13 @@ void minHeap<T>::pop() // 在堆中移除最小元素
 		if (child < heapSize && heap[child] > heap[child + 1])
 			child++;
 
-		// can we put lastElement in heap[currentNode]?
+		// 判断能否将lastElement放入heap[currentNode]
 		if (lastElement <= heap[child])
-			break;   // yes
+			break;   // 能放入
 
 		 // no
-		heap[currentNode] = heap[child]; // move child up
-		currentNode = child;             // move down a level
+		heap[currentNode] = heap[child]; // currentNode的较小子结点赋值给currentNode
+		currentNode = child;             // currentNode移动到其子结点
 		child *= 2;
 	}
 	heap[currentNode] = lastElement;
@@ -117,32 +117,33 @@ void minHeap<T>::pop() // 在堆中移除最小元素
 
 template<class T>
 void minHeap<T>::initialize(T *theHeap, int theSize)
-{// Initialize max heap to element array theHeap[1:theSize].
-	delete[] heap;
+{
+	// 在数组 theHeap[1:theSize] 上初始化最小堆
+	delete[] heap; // 删除当前堆
 	heap = theHeap;
 	heapSize = theSize;
 
-	// heapify
+	// 建堆，将以root为根的子树调整为最小堆
 	for (int root = heapSize / 2; root >= 1; root--)
 	{
 		T rootElement = heap[root];
 
-		// find place to put rootElement
-		int child = 2 * root; // parent of child is target
-							  // location for rootElement
+		// 找到位置以放入rootElement
+		int child = 2 * root; // child的父结点是目标
+							  // 为rootElement定位
 		while (child <= heapSize)
 		{
-			// heap[child] should be smaller sibling
+			// heap[child] 应是兄弟结点中较小的
 			if (child < heapSize && heap[child] > heap[child + 1])
 				child++;
 
-			// can we put rootElement in heap[child/2]?
+			// 判断能否将rootElement放入heap[child/2]
 			if (rootElement <= heap[child])
-				break;  // yes
+				break;  // 能放入
 
-			 // no
-			heap[child / 2] = heap[child]; // move child up
-			child *= 2;                    // move down a level
+			 // 不能放入
+			heap[child / 2] = heap[child]; // 将root的较小子结点赋值给root
+			child *= 2;                    // child向下移动
 		}
 		heap[child / 2] = rootElement;
 	}
@@ -150,11 +151,11 @@ void minHeap<T>::initialize(T *theHeap, int theSize)
 
 template<class T>
 void minHeap<T>::output(ostream& out) const
-{// Put the array into the stream out.
+{// 将数组放入流，输出
 	copy(heap + 1, heap + heapSize + 1, ostream_iterator<T>(cout, "  "));
 }
 
-// overload <<
+// 重载操作符<<
 template <class T>
 ostream& operator<<(ostream& out, const minHeap<T>& x)
 {
