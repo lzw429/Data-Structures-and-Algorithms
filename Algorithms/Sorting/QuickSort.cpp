@@ -10,11 +10,11 @@ void QuickSort(int arr[], int p, int r)
 	}
 }
 
-int Partition(itn arr[], int p, int r)
+int Partition(int arr[], int p, int r)
 {
-	int x = arr[r];//最后一个元素
+	int x = arr[r];//x是最后一个元素，作为基准pivot
 	int i = p - 1;
-	for (int j = p; j <= r - 1; ++j)
+	for (int j = p; j <= r - 1; ++j)// 遍历arr
 	{
 		if (arr[j] <= x)
 		{
