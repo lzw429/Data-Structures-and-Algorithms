@@ -18,7 +18,7 @@ int Partition(int arr[], int p, int r)
 	{
 		if (arr[j] <= pivot)
 		{
-			i++;
+			i++; // 保证arr[i]是已知的最后一个小于等于pivot的元素
 			swap(arr[i], arr[j]);
 		}
 	}// 如果 arr[j] <= pivot, i++, 交换arr[i]和arr[j], j++
