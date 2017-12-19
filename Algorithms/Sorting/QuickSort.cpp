@@ -1,4 +1,4 @@
-// 算法导论第二版 P.85
+// 算法导论第三版 P.95
 void QuickSort(int arr[], int p, int r)
 {
 	if (p < r)
@@ -12,16 +12,17 @@ void QuickSort(int arr[], int p, int r)
 
 int Partition(int arr[], int p, int r)
 {
-	int x = arr[r];//x是最后一个元素，作为基准pivot
+	int pivot = arr[r];//pivot是最后一个元素
 	int i = p - 1;
-	for (int j = p; j <= r - 1; ++j)// 遍历arr
+	for (int j = p; j <= r - 1; ++j)// 遍历arr，将所有小于等于pivot的元素交换到大于pivot的元素之前
 	{
-		if (arr[j] <= x)
+		if (arr[j] <= pivot)
 		{
 			i++;
-			swap(arr[i], arr[j]);//使得arr[i]小于等于arr[r]，arr[j]大于arr[r]
+			swap(arr[i], arr[j]);
 		}
-	}
+	}// 如果 arr[j] <= pivot, i++, 交换arr[i]和arr[j], j++
+	 // 如果 arr[j] > pivot, j++
 	swap(arr[i + 1], arr[r]);//arr[i+1]应大于等于arr[r]，交换
 	return i + 1;
 }
