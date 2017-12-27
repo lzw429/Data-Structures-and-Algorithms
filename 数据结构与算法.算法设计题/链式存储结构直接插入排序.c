@@ -9,7 +9,8 @@ void StraightInsortSort(ListNode *head) {
         return;
     ListNode *pre = head;
     ListNode *cur = head->next;
-    while (cur) {
+    while (cur) // 循环中始终保证head到cur这段链表是有序的
+    {
         if (cur->next && cur->val > cur->next->val) // 需要将cur->next调整位置
         {
             while (pre->next && pre->next->val < cur->next->val)
