@@ -1,28 +1,31 @@
-// Ëã·¨µ¼ÂÛµÚÈı°æ P.95
-void QuickSort(int arr[], int p, int r)
-{
-	if (p < r)
-	{
-		q = Partition(arr, p, r);
-		// ·ÖÖÎ
-		QuickSort(arr, p, q - 1);
-		QuickSort(arr, q + 1, r);
-	}
+// ç®—æ³•å¯¼è®ºç¬¬ä¸‰ç‰ˆ P.95
+template<class T, class Iterator>
+void QuickSort(Iterator first, Iterator last) {
+    if (first < last) {
+        Iterator mid = Partition(first, last);
+        QuickSort(first, mid - 1);
+        QuickSort(mid + 1, last);
+    }
 }
 
-int Partition(int arr[], int p, int r)
-{
-	int pivot = arr[r];//pivotÊÇ×îºóÒ»¸öÔªËØ
-	int i = p - 1;
-	for (int j = p; j <= r - 1; ++j)// ±éÀúarr£¬½«ËùÓĞĞ¡ÓÚµÈÓÚpivotµÄÔªËØ½»»»µ½´óÓÚpivotµÄÔªËØÖ®Ç°
-	{
-		if (arr[j] <= pivot)
-		{
-			i++; // ±£Ö¤arr[i]ÊÇÒÑÖªµÄ×îºóÒ»¸öĞ¡ÓÚµÈÓÚpivotµÄÔªËØ
-			swap(arr[i], arr[j]);
-		}
-	}// Èç¹û arr[j] <= pivot, i++, ½»»»arr[i]ºÍarr[j], j++
-	 // Èç¹û arr[j] > pivot, j++
-	swap(arr[i + 1], arr[r]);//arr[i+1]Ó¦´óÓÚµÈÓÚarr[r]£¬½»»»
-	return i + 1;
+Iterator Partition(Iterator first, Iterator last) {
+    T pivot = *last;
+    Iterator i = first - 1; // ä¸è¦å°è¯•è®¿é—®*(first-1)
+    for (Iterator j = first; j <= last - 1; ++j) {
+        if (*j.key <= pivot.key) {
+            // å°†æ‰€æœ‰å°äºç­‰äºpivotçš„å…ƒç´ ï¼Œäº¤æ¢åˆ°å¤§äºpivotçš„å…ƒç´ ä¹‹å‰
+            i++;
+            swap(i, j);
+        }
+    }
+    // å¦‚æœ*j.key <= pivot.keyï¼Œi++ï¼Œäº¤æ¢*iå’Œ*jï¼Œj++
+    // å¦‚æœ*j.key > pivot.keyï¼Œj++
+    swap(i + 1, last);
+    return i + 1;
+}
+
+void swap(Iterator i, Iterator j) {
+    T tmp = *i;
+    *i = *j;
+    *j = tmp;
 }
