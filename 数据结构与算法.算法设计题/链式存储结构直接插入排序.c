@@ -5,10 +5,10 @@ struct ListNode {
 };
 
 void StraightInsortSort(ListNode *head) {
-    if (head == nullptr || head->next == nullptr)
+    if (head == nullptr || head->next == nullptr)// 没有元素或1个元素
         return;
     ListNode *pre = head;
-    ListNode *cur = head->next;
+    ListNode *cur = head->next;// 首个元素0
     while (cur) // 循环中始终保证head到cur这段链表是有序的
     {
         if (cur->next && cur->val > cur->next->val) // 需要将cur->next调整位置

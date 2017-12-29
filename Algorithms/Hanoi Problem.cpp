@@ -1,11 +1,13 @@
 #include<cstdio>
 
-void Hanoi(int n, char A, char B, char C) {
+void Hanoi(int n, char A, char B, char C) // 将在A的n层移到C
+{
     if (n > 1)
-        Hanoi(n - 1, A, C, B);//上面n-1层从A移到B
+        Hanoi(n - 1, A, C, B);//上面的n-1层从A移到B
+	// else if (n == 1)
     printf("Move %d disc from %c to %c\n", n, A, C);//最后一层A移到C
     if (n > 1)
-        Hanoi(n - 1, B, A, C);//上面n-1层从B移到C
+        Hanoi(n - 1, B, A, C);//上面的n-1层从B移到C
 }
 
 int main() {

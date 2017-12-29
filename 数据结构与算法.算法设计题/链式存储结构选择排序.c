@@ -7,11 +7,11 @@ struct ListNode {
 void simpleSelectSort(ListNode *head) {
     if (head == nullptr || head->next == nullptr)
         return;
-    ListNode *cur = head->next;
-    ListNode *min = cur;
-    while (cur)//保证head到cur这段链表有序
+    ListNode *cur = head->next, *min = cur;
+    for (; cur != nullptr; cur = cur->next) // 循环中保证head到cur这段链表有序
     {
-
-        cur = cur->next;
+        for (min = cur->next; min != nullptr; min = min->next) {
+            if (min->val < cur->next)
+        }
     }
 }
